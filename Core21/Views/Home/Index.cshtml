@@ -2,8 +2,21 @@
 [Index.cshtml start]
 <br />
 <b>@Model.Title</b>
+@Html.Raw(Model.Title)
 <br />
 @Model.Text
 <br />
+@{
+    string msg, errorMsg;
+    if (Model.Title == null)
+    {
+        msg = "Title was null";
+    }
+    else
+    {
+        msg = "Title was "+Model.Title;
+    }
+}
+@msg
 [Index.cshtml end]
 <br />

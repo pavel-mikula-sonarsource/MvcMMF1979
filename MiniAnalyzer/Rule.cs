@@ -8,6 +8,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.AspNetCore.Razor;
+using Microsoft.AspNetCore.Razor.Language;
+using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
+using Microsoft.AspNetCore.Razor.Language.Components;
+using Microsoft.AspNetCore.Razor.Language.Extensions;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
 
 namespace MiniAnalyzer
 {
@@ -31,6 +37,25 @@ namespace MiniAnalyzer
             context.RegisterCompilationStartAction(
                 cc =>
                 {
+                    var config = RazorConfiguration.Default;
+                    var fs = RazorProjectFileSystem.Create(@"c:\Projects\MvcMMF1979\Framework48\");
+                    var project = RazorProjectEngine.Create(config, fs);
+
+                    var item = fs.GetItem("~/Views/Home/Index.cshtml");
+                    //var host = new RazorEngineHost(new CSharpRazorCodeLanguage())
+                    //{
+                    //    DefaultBaseClass = "OrderInfoTemplateBase",
+                    //    DefaultClassName = "OrderInfoTemplate",
+                    //    DefaultNamespace = "CompiledRazorTemplates",
+                    //}
+                    ;
+                    //var template = new RazorTemplateEngine(host);
+                    var razorDocument = project.Process(item);
+                    var csharpDocument = razorDocument.GetCSharpDocument();
+                    //template.GenerateCode(razorDocument);
+
+
+
                     cc.RegisterSyntaxNodeAction(
                         c =>
                         {
@@ -38,6 +63,7 @@ namespace MiniAnalyzer
                             {
                                 var msg = c.SemanticModel.GetDeclaredSymbol(c.Node as MethodDeclarationSyntax).ToMinimalDisplayString(c.SemanticModel, c.Node.GetLocation().SourceSpan.Start);
                                 Log("All: " + msg);
+                                Log(Environment.StackTrace);
 
                                 var diagnostic = Diagnostic.Create(rule, c.Node.GetLocation(), msg);
                                 c.ReportDiagnostic(diagnostic);
