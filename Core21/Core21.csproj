@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -12,5 +12,13 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
+  <!--<ItemGroup>
+    <Analyzer Include="c:\Projects\sonar-security\frontend\csharp\src\SonarAnalyzer.Security\bin\Debug\net46\SonarAnalyzer.Security.dll" />
+    <Analyzer Include="c:\Projects\sonar-security\frontend\csharp\src\SonarAnalyzer.Security\bin\Debug\net46\SonarAnalyzer.CFG.dll" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <Analyzer Include="c:\Projects\MvcMMF1979\MiniAnalyzer\bin\Debug\netstandard1.3\MiniAnalyzer.dll" />
+  </ItemGroup>
+
 
 </Project>
