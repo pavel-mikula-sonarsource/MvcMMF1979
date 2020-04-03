@@ -41,7 +41,6 @@ namespace Core21
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton<RazorTemplateEngine, CustomMvcRazorTemplateEngine>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,23 +65,8 @@ namespace Core21
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-                    }
-    }
-
-
-
-public class CustomMvcRazorTemplateEngine : MvcRazorTemplateEngine
-    {
-        public CustomMvcRazorTemplateEngine(RazorEngine engine, RazorProject project) : base(engine, project)
-        { }
-
-        public override RazorCSharpDocument GenerateCode(RazorCodeDocument codeDocument)
-        {
-            throw new NotImplementedException();
-            RazorCSharpDocument razorCSharpDocument = base.GenerateCode(codeDocument);
-            // Set breakpoint here for inspecting the generated C# code in razorCSharpDocument.GeneratedCode
-            // The razor code can be inspected in the Autos or Locals window in codeDocument.Source._innerSourceDocument._content
-            return razorCSharpDocument;
         }
     }
 }
+
+

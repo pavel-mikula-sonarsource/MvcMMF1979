@@ -1,9 +1,5 @@
 ﻿@model Article
-[Index.cshtml start]
-<br />
-<b>@Model.Title</b>
-<br />
-@Model.Text
-<br />
-[Index.cshtml end]
-<br />
+<b>Static html</b>
+@Model.Title
+@Html.Raw(Model.Title)
+<b>Static html</b>

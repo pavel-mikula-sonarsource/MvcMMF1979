@@ -8,19 +8,19 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.AspNetCore.Razor;
-using Microsoft.AspNetCore.Razor.Language;
-using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
-using Microsoft.AspNetCore.Razor.Language.Components;
-using Microsoft.AspNetCore.Razor.Language.Extensions;
-using Microsoft.AspNetCore.Razor.Language.Intermediate;
+//using Microsoft.AspNetCore.Razor;
+//using Microsoft.AspNetCore.Razor.Language;
+//using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
+//using Microsoft.AspNetCore.Razor.Language.Components;
+//using Microsoft.AspNetCore.Razor.Language.Extensions;
+//using Microsoft.AspNetCore.Razor.Language.Intermediate;
 
 namespace MiniAnalyzer
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class MiniRule : DiagnosticAnalyzer
+    public class MiniRule2 : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "MiniAnalyzer";
+        public const string DiagnosticId = "XMini";
 
         private string logFN;
 
@@ -33,43 +33,39 @@ namespace MiniAnalyzer
             logFN = $@"C:\_Temp\Log {DateTime.Now.ToString("yyyy-MM-dd HHmmss")}.txt";
             if (!File.Exists(logFN))
                 File.WriteAllText(logFN, "");
-
-            context.RegisterCompilationStartAction(
-                cc =>
-                {
-                    var config = RazorConfiguration.Default;
-                    var fs = RazorProjectFileSystem.Create(@"c:\Projects\MvcMMF1979\Framework48\");
-                    var project = RazorProjectEngine.Create(config, fs);
-
-                    var item = fs.GetItem("~/Views/Home/Index.cshtml");
-                    //var host = new RazorEngineHost(new CSharpRazorCodeLanguage())
-                    //{
-                    //    DefaultBaseClass = "OrderInfoTemplateBase",
-                    //    DefaultClassName = "OrderInfoTemplate",
-                    //    DefaultNamespace = "CompiledRazorTemplates",
-                    //}
-                    ;
-                    //var template = new RazorTemplateEngine(host);
-                    var razorDocument = project.Process(item);
-                    var csharpDocument = razorDocument.GetCSharpDocument();
-                    //template.GenerateCode(razorDocument);
-
-
-
-                    cc.RegisterSyntaxNodeAction(
-                        c =>
-                        {
-                            if (c.Node.ToString().Contains(@"Views\Home\Index.cshtml"))
+            try
+            {
+                context.RegisterCompilationStartAction(
+                    cc =>
+                    {
+                        cc.RegisterSyntaxNodeAction(
+                            c =>
                             {
-                                var msg = c.SemanticModel.GetDeclaredSymbol(c.Node as MethodDeclarationSyntax).ToMinimalDisplayString(c.SemanticModel, c.Node.GetLocation().SourceSpan.Start);
-                                Log("All: " + msg);
-                                Log(Environment.StackTrace);
+                                try
+                                {
+                                    if (c.Node.ToString().Contains(@"Views\Home\Index.cshtml"))
+                                    {
+                                        //throw new System.Exception("Test");
+                                        var msg = c.SemanticModel.GetDeclaredSymbol(c.Node as MethodDeclarationSyntax).ToMinimalDisplayString(c.SemanticModel, c.Node.GetLocation().SourceSpan.Start);
+                                        Log("All: " + msg);
+                                        //Log(Environment.StackTrace);
+                                        Log(c.Node.SyntaxTree.ToString());
 
-                                var diagnostic = Diagnostic.Create(rule, c.Node.GetLocation(), msg);
-                                c.ReportDiagnostic(diagnostic);
-                            }
-                        }, SyntaxKind.MethodDeclaration);
-                });
+                                        var diagnostic = Diagnostic.Create(rule, c.Node.GetLocation(), msg);
+                                        c.ReportDiagnostic(diagnostic);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Log($"Error {ex.GetType().Name}: {ex.Message}\n\n{ex.ToString()}");
+                                }
+                            }, SyntaxKind.MethodDeclaration);
+                    });
+            }
+            catch (Exception ex)
+            {
+                Log($"Main Error {ex.GetType().Name}: {ex.Message}\n\n{ex.ToString()}");
+            }
         }
 
         private void Log(string msg)

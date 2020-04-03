@@ -1,22 +1,7 @@
-﻿@model Article
-[Index.cshtml start]
-<br />
-<b>@Model.Title</b>
+﻿Lorem ipsum
+@ViewBag.Empty
+@*@model Article
+<b>Static html</b>
+@Model.Title
 @Html.Raw(Model.Title)
-<br />
-@Model.Text
-<br />
-@{
-    string msg, errorMsg;
-    if (Model.Title == null)
-    {
-        msg = "Title was null";
-    }
-    else
-    {
-        msg = "Title was "+Model.Title;
-    }
-}
-@msg
-[Index.cshtml end]
-<br />
+<b>Static html</b>*@
