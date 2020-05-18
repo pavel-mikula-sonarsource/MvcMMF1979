@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Shared\" />
+    <Folder Include="Shared\" />
+    <Folder Include="Views\PartialViews\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

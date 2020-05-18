@@ -1,4 +1,5 @@
 ﻿@model Framework48.Models.Article
+
 [Index.cshtml start]
 <br />
 <b>@Model.Title</b>
@@ -7,3 +8,15 @@ Lorem @Model.Text Ipsum
 <br />
 [Index.cshtml end]
 <br />
+<br />
+ViewDataValue: @ViewData["Value"]
+<br />
+ViewBagValue: @ViewBag.Value
+<br />
+HttpContext: @Context.Items["Value"]
+<br />
+EditorForModel:
+@Html.EditorForModel()
+EditorForType:
+@Html.EditorFor(x => x.Title)
+

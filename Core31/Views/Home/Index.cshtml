@@ -3,3 +3,8 @@
 @Model.Title
 @Html.Raw(Model.Title)
 <b>Static html</b>
+ViewBag: @ViewBag.Title
+<br />
+ViewDataValue: @ViewData["Value"]<br />
+ViewBagValue: @ViewBag.Value<br />
+HttpContext: @Context.Items["Value"]<br />
