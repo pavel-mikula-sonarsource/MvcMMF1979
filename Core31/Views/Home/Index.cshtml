@@ -5,6 +5,16 @@
 <b>Static html</b>
 ViewBag: @ViewBag.Title
 <br />
-ViewDataValue: @ViewData["Value"]<br />
-ViewBagValue: @ViewBag.Value<br />
-HttpContext: @Context.Items["Value"]<br />
+ViewDataValue: @ViewData["Value"]
+<br />
+ViewBagValue: @ViewBag.Value
+<br />
+HttpContext: @Context.Items["Value"]
+<br />
+<br />
+Component:
+<br />
+@await Component.InvokeAsync("Footer", new { count = 42 });
+<br />
+ViewBagValue2: @ViewBag.Value
+<br />

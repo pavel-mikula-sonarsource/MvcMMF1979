@@ -18,10 +18,6 @@ namespace Core31.Controllers
         public IActionResult Index(string value)
         {
             ViewBag.Title = "Home Page";
-            value = HttpContext.Request.Query["Key"];
-
-
-
             ViewData["Value"] = "ViewData: " + value;
             ViewBag.Value = "ViewBag: " + value;
             HttpContext.Items["Value"] = "HttpContextItems: " + value;
