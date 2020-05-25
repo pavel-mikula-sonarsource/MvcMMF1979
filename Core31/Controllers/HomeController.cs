@@ -18,9 +18,11 @@ namespace Core31.Controllers
         public IActionResult Index(string value)
         {
             ViewBag.Title = "Home Page";
+
             ViewData["Value"] = "ViewData: " + value;
             ViewBag.Value = "ViewBag: " + value;
             HttpContext.Items["Value"] = "HttpContextItems: " + value;
+            ViewBag.RawValue = new HtmlString(value);
 
             var model = new Models.Article("Title", "Text");
             return View(model);
