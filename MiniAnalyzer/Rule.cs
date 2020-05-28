@@ -43,7 +43,9 @@ namespace MiniAnalyzer
                             {
                                 try
                                 {
-                                    if (c.Node.ToString().Contains(@"Views\Home\Index.cshtml"))
+                                    //if (c.Node.ToString().Contains(@"Views\Home\Index.cshtml") ||
+                                    //    c.Node.ToString().Contains(@"_Layout.cshtml") ||
+                                    //    c.Node.ToString().Contains(@"_ViewStart.cshtml"))
                                     {
                                         //throw new System.Exception("Test");
                                         var msg = c.SemanticModel.GetDeclaredSymbol(c.Node as MethodDeclarationSyntax).ToMinimalDisplayString(c.SemanticModel, c.Node.GetLocation().SourceSpan.Start);

@@ -123,6 +123,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Shared\_SecondLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -158,13 +159,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-
   <ItemGroup>
     <Analyzer Include="c:\Projects\sonar-security\frontend\csharp\src\SonarAnalyzer.Security\bin\Debug\netstandard2.0\SonarAnalyzer.Security.dll" />
     <Analyzer Include="c:\Projects\sonar-security\frontend\csharp\src\SonarAnalyzer.Security\bin\Debug\netstandard2.0\SonarAnalyzer.CFG.dll" />
   </ItemGroup>
-
-
   <ItemGroup>
     <Analyzer Include="c:\Projects\MvcMMF1979\MiniAnalyzer\bin\Debug\netstandard1.3\MiniAnalyzer.dll" />
   </ItemGroup>
