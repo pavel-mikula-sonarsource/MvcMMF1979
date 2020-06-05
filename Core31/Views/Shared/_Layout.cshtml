@@ -7,8 +7,15 @@
 </head>
 <body>
     [_Layout.cshtml start]<br />
-    LayoutVievBag: @ViewBag.Value<br />
+    LayoutViewBag: @ViewBag.Value<br />
     @RenderBody()
-    [_Layout.cshtml end]<br />
+    <div>
+        @foreach (var i in new[] { 1, 2, 3 })
+        {
+            <span>@i&nbsp;</span>
+        }
+   </div>
+    @await Html.PartialAsync("_PartialAsync")
+   [_Layout.cshtml end]<br />
 </body>
 </html>

@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Analyzer Include="c:\Projects\MvcMMF1979\MiniAnalyzer\bin\Debug\netstandard1.3\MiniAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
