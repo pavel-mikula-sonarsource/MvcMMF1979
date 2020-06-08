@@ -8,14 +8,16 @@
 <body>
     [_Layout.cshtml start]<br />
     LayoutViewBag: @ViewBag.Value<br />
-    @RenderBody()
+    <div style="padding: 20px;">
+        @RenderBody()
+    </div>
     <div>
         @foreach (var i in new[] { 1, 2, 3 })
         {
-            <span>@i&nbsp;</span>
+        <span>@i&nbsp;</span>
         }
-   </div>
+    </div>
     @await Html.PartialAsync("_PartialAsync")
-   [_Layout.cshtml end]<br />
+    [_Layout.cshtml end]<br />
 </body>
 </html>
