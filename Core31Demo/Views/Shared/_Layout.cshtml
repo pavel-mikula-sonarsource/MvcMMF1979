@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random website</title>
+</head>
+<body>
+    <div style="margin-left: auto; margin-right: auto; width: 1000px;">
+        <h1>@Html.Raw(@ViewBag.Title)</h1>
+        <div style="padding: 20px;">
+            @RenderBody()
+        </div>
+        <div>
+            <a href="/?Page=About&Message=Hello">About</a>
+        </div>
+    </div>
+</body>
+</html>
