@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Analyzer Include="d:\Projects\.Archive\MvcMMF1979\MiniAnalyzer\bin\Debug\netstandard2.0\MiniAnalyzer.dll" />
+    <AdditionalFiles Include="d:\_Temp\Rs.json" Link="SonarLint.xml" />
+  </ItemGroup>
+
+</Project>

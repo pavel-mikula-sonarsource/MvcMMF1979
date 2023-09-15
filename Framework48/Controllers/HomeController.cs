@@ -12,6 +12,7 @@ namespace Framework48.Controllers
         {
             ViewBag.Title = "Home Page";
             var model = new Models.Article("Title", "Text");
+            Response.Cookies.Add(cookie);
             return View(model);
         }
     }

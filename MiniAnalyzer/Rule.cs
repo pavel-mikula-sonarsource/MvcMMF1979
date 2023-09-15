@@ -24,40 +24,50 @@ namespace MiniAnalyzer
 
         public override void Initialize(AnalysisContext context)
         {
-            fnPrefix = $@"C:\_Temp\Log {DateTime.Now:yyyy-MM-dd HHmmss}";
-            try
+            context.RegisterSyntaxNodeAction(c =>
             {
-                context.RegisterCompilationStartAction(
-                    cc =>
-                    {
-                        cc.RegisterSyntaxNodeAction(
-                            c =>
-                            {
-                                try
-                                {
-                                    if (c.Node.ToString().Contains(@"Views\Home\Index.cshtml") ||
-                                        c.Node.ToString().Contains(@"_Layout.cshtml") ||
-                                        c.Node.ToString().Contains(@"_ViewStart.cshtml")
-                                        && !c.Node.ToString().Contains("PrecompiledSample"))
-                                    {
-                                        var msg = c.SemanticModel.GetDeclaredSymbol(c.Node as MethodDeclarationSyntax).ToMinimalDisplayString(c.SemanticModel, c.Node.GetLocation().SourceSpan.Start);
-                                        Log(c.Node.SyntaxTree.ToString(), msg);
+                var message = c.Options.AdditionalFiles.Select(x => x.Path + ", " + x.GetText()?.ToString()).FirstOrDefault() ?? "N/A";
+                //c.SemanticModel.GetNullableContext(42);
 
-                                        //var diagnostic = Diagnostic.Create(rule, c.Node.GetLocation(), msg);
-                                        //c.ReportDiagnostic(diagnostic);
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    Log($"Error {ex.GetType().Name}: {ex.Message}\n\n{ex}", "Error");
-                                }
-                            }, SyntaxKind.MethodDeclaration);
-                    });
-            }
-            catch (Exception ex)
-            {
-                Log($"Main Error {ex.GetType().Name}: {ex.Message}\n\n{ex.ToString()}", "Error");
-            }
+
+                c.ReportDiagnostic(Diagnostic.Create(rule, c.Node.GetLocation(), message));
+            }, SyntaxKind.ClassDeclaration);
+
+
+            //fnPrefix = $@"C:\_Temp\Log {DateTime.Now:yyyy-MM-dd HHmmss}";
+            //try
+            //{
+            //    context.RegisterCompilationStartAction(
+            //        cc =>
+            //        {
+            //            cc.RegisterSyntaxNodeAction(
+            //                c =>
+            //                {
+            //                    try
+            //                    {
+            //                        if (c.Node.ToString().Contains(@"Views\Home\Index.cshtml") ||
+            //                            c.Node.ToString().Contains(@"_Layout.cshtml") ||
+            //                            c.Node.ToString().Contains(@"_ViewStart.cshtml")
+            //                            && !c.Node.ToString().Contains("PrecompiledSample"))
+            //                        {
+            //                            var msg = c.SemanticModel.GetDeclaredSymbol(c.Node as MethodDeclarationSyntax).ToMinimalDisplayString(c.SemanticModel, c.Node.GetLocation().SourceSpan.Start);
+            //                            Log(c.Node.SyntaxTree.ToString(), msg);
+
+            //                            //var diagnostic = Diagnostic.Create(rule, c.Node.GetLocation(), msg);
+            //                            //c.ReportDiagnostic(diagnostic);
+            //                        }
+            //                    }
+            //                    catch (Exception ex)
+            //                    {
+            //                        Log($"Error {ex.GetType().Name}: {ex.Message}\n\n{ex}", "Error");
+            //                    }
+            //                }, SyntaxKind.MethodDeclaration);
+            //        });
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log($"Main Error {ex.GetType().Name}: {ex.Message}\n\n{ex.ToString()}", "Error");
+            //}
         }
 
         private void Log(string msg, string fnInfix)
